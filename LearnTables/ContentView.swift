@@ -9,6 +9,8 @@ struct ContentView: View {
     @State private var alertTitle = "Hi"
     @State private var alertContent = "testing"
     
+    @State private var rotation = 0.0
+    
     @State private var score = 0
     
     private var answer: Int {
@@ -47,12 +49,16 @@ struct ContentView: View {
                     .foregroundStyle(.yellow)
                     .fontDesign(.rounded)
                     .fontWeight(.black)
+                    .rotation3DEffect(
+                        .degrees(rotation), axis: /*@START_MENU_TOKEN@*/(x: 0.0, y: 1.0, z: 0.0)/*@END_MENU_TOKEN@*/
+                    )
                 Spacer()
 
                 VStack {
                     GameButton(text: "\(numbers[0])", action: action)
                     GameButton(text: "\(numbers[1])", action: action)
                     GameButton(text: "\(numbers[2])", action: action)
+                    
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 30)
@@ -61,6 +67,12 @@ struct ContentView: View {
 
                 Spacer()
                 Spacer()
+                Text("Your Score: \(score)")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .fontDesign(.rounded)
+                    .foregroundStyle(Color.blue)
+                    .animation(.bouncy, value: score)
                 Spacer()
                 Spacer()
             }
@@ -82,12 +94,16 @@ struct ContentView: View {
         if value == secondNumber {
             alertTitle = "Correct ✅"
             alertContent = "Your answer is correct!"
+            withAnimation {
+                score += 1
+            }
         } else {
             alertTitle = "Wrong 🥲"
             alertContent = "Your answer is wrong, the correct answer is \(secondNumber)"
         }
         
         withAnimation {
+            rotation += 360
             showAlert = true
             numbers.shuffle()
             firstNumber = Int.random(in: 2...12)
