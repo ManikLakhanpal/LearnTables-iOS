@@ -50,7 +50,7 @@ struct ContentView: View {
                     .fontDesign(.rounded)
                     .fontWeight(.black)
                     .rotation3DEffect(
-                        .degrees(rotation), axis: /*@START_MENU_TOKEN@*/(x: 0.0, y: 1.0, z: 0.0)/*@END_MENU_TOKEN@*/
+                        .degrees(rotation), axis: (x: 1.0, y: 0.0, z: 0.0)
                     )
                 Spacer()
 
@@ -107,7 +107,7 @@ struct ContentView: View {
             showAlert = true
             numbers.shuffle()
             firstNumber = Int.random(in: 2...12)
-            secondNumber = numbers[Int.random(in: 0..<3)]
+            secondNumber = numbers[Int.random(in: 0...2)]
         }
             
     }
