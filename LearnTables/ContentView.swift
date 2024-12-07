@@ -79,7 +79,7 @@ struct ContentView: View {
         }
         .onAppear {
             // Initialize secondNumber with a random element from numbers array
-            secondNumber = numbers[Int.random(in: 0..<numbers.count)]
+            secondNumber = numbers[Int.random(in: 0...2)]
         }
         .alert(alertTitle, isPresented: $showAlert) {
             Button("Ok") {}
